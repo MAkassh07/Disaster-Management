@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Disaster Command Center — Report Emergency</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="navbar">
+  <div class="brand">AI Disaster Command Center</div>
+  <div>
+    <a href="/" class="active">Report</a>
+    <a href="/dashboard">Dashboard</a>
+  </div>
+</div>
+
+<div class="container">
+  <h1>Report an Emergency</h1>
+  <p class="subtitle">Describe what's happening. Add a photo and your location if you can — the AI uses everything to prioritize your case.</p>
+
+  <div class="card">
+    <form id="reportForm">
+      <label for="description">What's happening?</label>
+      <textarea id="description" name="description" placeholder="e.g. Flood water has entered my house. My grandmother is trapped on the first floor."></textarea>
+
+      <label for="location">Location (area / city / district)</label>
+      <input type="text" id="location" name="location" placeholder="e.g. Sivakasi, Tamil Nadu">
+
+      <label for="image">Upload a photo (optional)</label>
+      <input type="file" id="image" name="image" accept="image/*">
+
+      <input type="hidden" id="lat" name="lat">
+      <input type="hidden" id="lng" name="lng">
+
+      <div class="btn-row">
+        <button type="button" class="btn-secondary" onclick="useMyLocation()">📍 Use My Location</button>
+        <span id="locationStatus"></span>
+      </div>
+
+      <div class="btn-row">
+        <button type="submit" class="btn-primary" id="submitBtn">Submit Report</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="card result-card" id="resultCard">
+    <span class="badge" id="priorityBadge">—</span>
+    <span style="margin-left:10px; font-weight:700;" id="priorityScoreText"></span>
+
+    <div class="result-grid">
+      <div>
+        <div class="result-label">Emergency Type</div>
+        <div class="result-value" id="rEmergencyType">—</div>
+      </div>
+      <div>
+        <div class="result-label">People At Risk</div>
+        <div class="result-value" id="rPeopleAtRisk">—</div>
+      </div>
+      <div>
+        <div class="result-label">Required Teams</div>
+        <div class="result-value" id="rTeams">—</div>
+      </div>
+      <div>
+        <div class="result-label">District Hazard Context</div>
+        <div class="result-value" id="rHazard">—</div>
+      </div>
+      <div class="full">
+        <div class="result-label">AI Summary</div>
+        <div class="result-value" id="rSummary">—</div>
+      </div>
+      <div class="full">
+        <div class="result-label">Vision Signals</div>
+        <div class="result-value" id="rVision">—</div>
+      </div>
+      <div class="full">
+        <a id="rReportLink" href="#" target="_blank">📄 View official incident report</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/report.js') }}"></script>
+</body>
+</html>

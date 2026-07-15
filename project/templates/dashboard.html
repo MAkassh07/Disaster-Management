@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Disaster Command Center — Dashboard</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="navbar">
+  <div class="brand">AI Disaster Command Center</div>
+  <div>
+    <a href="/">Report</a>
+    <a href="/dashboard" class="active">Dashboard</a>
+  </div>
+</div>
+
+<div class="wide-container">
+  <h1>Officials Dashboard</h1>
+  <p class="subtitle">Live view of all reported incidents, ranked by AI-computed priority.</p>
+
+  <div class="stats-row">
+    <div class="stat-box"><div class="num" id="statTotal">0</div><div class="lbl">Total Cases</div></div>
+    <div class="stat-box high"><div class="num" id="statHigh">0</div><div class="lbl">High Priority</div></div>
+    <div class="stat-box medium"><div class="num" id="statMedium">0</div><div class="lbl">Medium Priority</div></div>
+    <div class="stat-box low"><div class="num" id="statLow">0</div><div class="lbl">Low Priority</div></div>
+  </div>
+
+  <div id="map">
+    <div class="map-fallback" style="height:100%;" id="mapFallback">
+      Map view needs a Google Maps API key — set GOOGLE_MAPS_API_KEY to enable it.
+    </div>
+  </div>
+
+  <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th>Priority</th>
+          <th>Type</th>
+          <th>Location</th>
+          <th>Summary</th>
+          <th>Reported</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="casesTable">
+        <tr><td colspan="6" class="empty-state">No cases reported yet.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>window.MAPS_KEY = "{{ maps_key }}";</script>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% if maps_key %}
+<script src="https://maps.googleapis.com/maps/api/js?key={{ maps_key }}&callback=initMap" async defer></script>
+{% endif %}
+</body>
+</html>
