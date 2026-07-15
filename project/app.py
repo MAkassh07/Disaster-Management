@@ -14,6 +14,7 @@ Optional environment variables (create a .env file or export these):
 
 import os
 import uuid
+from dotenv import load_dotenv
 from flask import Flask, request, jsonify, render_template, send_from_directory
 
 from hazard_knowledge_base import get_hazard_profile
@@ -21,6 +22,9 @@ from gemini_service import analyze_report
 from yolo_service import detect_objects
 from priority_engine import compute_priority, generate_official_report
 import data_store
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+load_dotenv(os.path.join(BASE_DIR, ".env"))
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_DIR = os.path.join(BASE_DIR, "uploads")
